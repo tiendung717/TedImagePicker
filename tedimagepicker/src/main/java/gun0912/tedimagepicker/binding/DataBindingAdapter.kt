@@ -5,7 +5,10 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeTransition
 import gun0912.tedimagepicker.base.BaseRecyclerViewAdapter
 
 internal class DataBindingAdapter {
@@ -16,6 +19,7 @@ internal class DataBindingAdapter {
         fun loadImage(imageView: ImageView, uri: Uri) {
             Glide.with(imageView.context)
                 .load(uri)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .thumbnail(0.1f)
                 .into(imageView)
         }

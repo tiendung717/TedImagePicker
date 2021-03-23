@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import gun0912.tedimagepicker.builder.GalleryPicker
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.TedRxImagePicker
 import gun0912.tedimagepicker.sample.databinding.ActivityMainBinding
@@ -35,21 +36,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setNormalSingleButton() {
         binding.btnNormalSingle.setOnClickListener {
-            TedImagePicker.with(this)
-                .start { uri -> showSingleImage(uri) }
+            GalleryPicker.buildVideoPicker(this)
+                .startMultiImage { list: List<Uri> -> showMultiImage(list) }
         }
     }
 
     private fun setNormalMultiButton() {
         binding.btnNormalMulti.setOnClickListener {
-            TedImagePicker.with(this)
-                //.mediaType(MediaType.IMAGE)
-                //.scrollIndicatorDateFormat("YYYYMMDD")
-                //.buttonGravity(ButtonGravity.BOTTOM)
-                //.buttonBackground(R.drawable.btn_sample_done_button)
-                //.buttonTextColor(R.color.sample_yellow)
-                .errorListener { message -> Log.d("ted", "message: $message") }
-                .selectedUri(selectedUriList)
+            GalleryPicker.buildPhotoPicker(this)
                 .startMultiImage { list: List<Uri> -> showMultiImage(list) }
         }
     }

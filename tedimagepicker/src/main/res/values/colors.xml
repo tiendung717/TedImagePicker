@@ -5,7 +5,7 @@
 
     <color name="black">#000000</color>
     <color name="black_87">#de000000</color>
-    <color name="black_54">#8a000000</color>
+    <color name="black_54">#80000000</color>
     <color name="black_30">#1d000000</color>
     <color name="black_20">#14000000</color>
 
@@ -15,8 +15,8 @@
 
     <color name="ted_image_picker_camera_background">#606060</color>
     <color name="ted_image_picker_selected_foreground">@color/black_54</color>
-    <color name="ted_image_picker_primary">#1976d2</color>
-    <color name="ted_image_picker_primary_pressed">#0956b2</color>
+    <color name="ted_image_picker_primary">#006173</color>
+    <color name="ted_image_picker_primary_pressed">#233b55</color>
     <color name="ted_image_picker_empty_selected_background">#dedede</color>
     <color name="ted_image_picker_toolbar_background">@color/white</color>
     <color name="ted_image_picker_selected_media_clear_background">#d0909090</color>
