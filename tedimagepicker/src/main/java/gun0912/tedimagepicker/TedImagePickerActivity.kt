@@ -6,12 +6,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -27,6 +29,7 @@ import gun0912.tedimagepicker.adapter.SelectedMediaAdapter
 import gun0912.tedimagepicker.base.BaseRecyclerViewAdapter
 import gun0912.tedimagepicker.builder.TedImagePickerBaseBuilder
 import gun0912.tedimagepicker.builder.type.AlbumType
+import gun0912.tedimagepicker.builder.type.MediaType
 import gun0912.tedimagepicker.builder.type.SelectType
 import gun0912.tedimagepicker.databinding.ActivityTedImagePickerBinding
 import gun0912.tedimagepicker.extenstion.close
@@ -287,10 +290,31 @@ internal class TedImagePickerActivity : AppCompatActivity() {
 
 
     private fun onMediaClick(uri: Uri) {
+
+        if (builder.mediaType == MediaType.VIDEO && isCorruptedVideo(uri)) {
+            Toast.makeText(this, "The file format is not supported", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         when (builder.selectType) {
             SelectType.SINGLE -> onSingleMediaClick(uri)
             SelectType.MULTI -> onMultiMediaClick(uri)
         }
+    }
+
+
+    private fun isCorruptedVideo(uri: Uri): Boolean {
+        var width = 0
+        val mediaMetadataRetriever = MediaMetadataRetriever()
+        try {
+            mediaMetadataRetriever.setDataSource(this, uri)
+            width =
+                mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
+                    ?.toInt() ?: 0
+        } catch (ex: Exception) {
+        }
+        mediaMetadataRetriever.release()
+        return width == 0
     }
 
     private fun onMultiMediaClick(uri: Uri) {
